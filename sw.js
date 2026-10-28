@@ -1,5 +1,5 @@
 
-const CACHE = "zac-attack-v1";
+const CACHE = "zac-attack-v2";
 
 const FILES = [
   "./",
