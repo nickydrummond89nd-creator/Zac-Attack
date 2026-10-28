@@ -134,4 +134,56 @@ el('sessionForm').addEventListener('submit',()=>setTimeout(render,0));
 document.querySelector('[data-tab="smartCoach"]').addEventListener('click',render);
 render();generate();
 })();
-</script><script>if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script></body></html>
+</script><script>if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script><script>
+/* Zac Attack complete local backup. Does not modify scoring or storage schemas. */
+(()=>{
+  const keys=["zac_attack_sessions_v1", "zac_attack_rivalry_v1", "zac_attack_live501_v1", "zac_attack_jdc_v1", "zac_attack_jdc_history_v1", "zac_attack_checkout_v1", "zac_attack_checkout_preferences_v1", "zac_attack_smart_coach_v1"];
+  const exportButton=document.getElementById('exportJson');
+  const importInput=document.getElementById('importJson');
+  if(!exportButton||!importInput)return;
+  exportButton.textContent='Export EVERYTHING (JSON)';
+  const intro=exportButton.closest('.panel');
+  const note=document.createElement('p');
+  note.className='notice';
+  note.textContent='Complete backup includes all Zac Attack data on this browser/device. Keep the JSON file private. Restoring will overwrite included data on this device.';
+  intro.appendChild(note);
+  exportButton.onclick=()=>{
+    try{
+      const data={format:'zac-attack-full-backup',version:3,createdAt:new Date().toISOString(),storage:{}};
+      for(const key of keys){const value=localStorage.getItem(key);if(value!==null)data.storage[key]=JSON.parse(value);}
+      const stamp=new Date().toISOString().slice(0,10);
+      download('zac-attack-FULL-backup-'+stamp+'.json',JSON.stringify(data,null,2),'application/json');
+    }catch(err){alert('Could not export backup: '+err.message);}
+  };
+  importInput.onchange=async event=>{
+    const file=event.target.files&&event.target.files[0];
+    if(!file)return;
+    try{
+      const backup=JSON.parse(await file.text());
+      let payload={};
+      if(backup.format==='zac-attack-full-backup'&&backup.version===3&&backup.storage&&typeof backup.storage==='object'&&!Array.isArray(backup.storage)){
+        for(const [key,value] of Object.entries(backup.storage)){
+          if(!keys.includes(key))throw Error('Unknown backup field: '+key);
+          payload[key]=value;
+        }
+      }else if(Array.isArray(backup.sessions)){
+        payload.zac_attack_sessions_v1=backup.sessions;
+        if(Array.isArray(backup.rivalry))payload.zac_attack_rivalry_v1=backup.rivalry;
+        if('game' in backup)payload.zac_attack_live501_v1=backup.game;
+      }else throw Error('Not a recognised Zac Attack backup');
+      if(!Object.keys(payload).length)throw Error('Backup contains no saved data');
+      const arrays=['zac_attack_sessions_v1','zac_attack_rivalry_v1','zac_attack_jdc_v1','zac_attack_jdc_history_v1','zac_attack_checkout_v1','zac_attack_smart_coach_v1'];
+      for(const key of arrays)if(key in payload&&!Array.isArray(payload[key]))throw Error('Invalid data for '+key);
+      if('zac_attack_sessions_v1' in payload&&payload.zac_attack_sessions_v1.some(x=>!x||typeof x!=='object'||!x.date||!x.type))throw Error('Invalid session records');
+      const entries=Object.entries(payload).map(([key,value])=>[key,JSON.stringify(value)]);
+      if(!confirm('Restore '+entries.length+' data categories from this backup? Existing records in those categories on this device will be REPLACED. Export a backup of this device first.'))return;
+      // Preserve originals if storage writes fail, to avoid partial imports.
+      const originals=entries.map(([key])=>[key,localStorage.getItem(key)]);
+      try{for(const [key,value] of entries)localStorage.setItem(key,value)}catch(err){for(const [key,value] of originals){try{value===null?localStorage.removeItem(key):localStorage.setItem(key,value)}catch{}}throw err;}
+      alert('Backup restored. The app will reload to show your results.');
+      location.reload();
+    }catch(err){alert('Could not restore backup: '+err.message)}
+    finally{importInput.value='';}
+  };
+})();
+</script></body></html>
