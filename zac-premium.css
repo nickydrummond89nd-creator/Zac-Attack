@@ -1,0 +1,31 @@
+/* Zac Attack Performance Hub | Premium Dark Edition
+   Presentation-only layer. No JavaScript, data keys or app logic changed. */
+:root{color-scheme:dark;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif!important;background:#090b10!important;color:#f7f8fb!important;--red:#f23c4f;--edge:#30333e;--muted:#a7aab6}
+html{background:#090b10}body{background:radial-gradient(ellipse 90% 300px at 50% -90px,#3a1521 0%,transparent 90%),#090b10;min-height:100vh;letter-spacing:.005em}
+header{position:relative;background:linear-gradient(145deg,#21151e 0%,#12141c 60%,#0b0d13 100%)!important;border-bottom:1px solid #5b2832!important;padding:28px 20px 25px!important;overflow:hidden}
+header:after{content:'◉';position:absolute;right:-22px;top:-76px;font-size:240px;line-height:1;color:rgba(242,60,79,.055);pointer-events:none}
+header>div{position:relative;z-index:1}header small{font-size:10px!important;font-weight:850;letter-spacing:.19em;color:#f3a5ad!important;text-transform:uppercase}
+header h1{font-size:clamp(35px,8vw,56px)!important;letter-spacing:-.055em;line-height:1.05;font-weight:950!important;margin:12px 0 9px!important;text-shadow:0 6px 20px #0007}
+.red{color:#ff4359!important}header .muted{font-size:13px;color:#c1bac3!important}
+main{max-width:940px!important;padding:16px 14px 100px!important}
+.tabs{position:sticky;top:0;z-index:50;display:flex;gap:7px;overflow-x:auto;margin:0 -14px 22px!important;padding:12px 14px!important;background:rgba(9,11,16,.96);border-bottom:1px solid #242730;scrollbar-width:none;backdrop-filter:blur(14px)}.tabs::-webkit-scrollbar{display:none}
+.tabs button{background:#191c25!important;border:1px solid #32343f!important;border-radius:999px!important;padding:12px 16px!important;font-size:12px!important;font-weight:750!important;box-shadow:none!important;transition:background .15s,color .15s}
+.tabs button.active{background:#ed354a!important;border-color:#ff5264!important;color:white!important;box-shadow:0 4px 16px #d52b4540!important}
+section.show{animation:zaIn .22s ease-out}@keyframes zaIn{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:none}}
+.panel{background:linear-gradient(155deg,#1c1f28,#14161e)!important;border:1px solid #303440!important;border-radius:18px!important;padding:19px!important;margin-bottom:15px!important;box-shadow:0 10px 24px #00000030}
+.panel h2{font-size:19px!important;letter-spacing:-.025em;margin:0 0 13px!important;font-weight:850}
+.panel p{color:#d1d2d9}.muted,small{color:#a7aab6!important}
+.grid{gap:10px!important}.stat{background:linear-gradient(145deg,#252936,#1c1f29)!important;border:1px solid #343845;border-radius:15px!important;padding:16px 13px!important;min-height:95px;box-shadow:inset 0 1px #ffffff07}
+.stat small{font-size:11px;line-height:1.4;display:block}.stat strong{font-size:clamp(22px,5vw,31px)!important;font-weight:900!important;letter-spacing:-.04em;color:#fff;margin-top:11px!important}
+button,.button{border-radius:12px!important;background:#292d39;color:#f9f9fb;min-height:44px;font-size:13px;font-weight:800!important;border:1px solid #3b3f4e!important;transition:transform .12s,background .12s}
+button:active,.button:active{transform:scale(.98)}button.active,.primary{background:linear-gradient(135deg,#ff485c,#d9273d)!important;border-color:#ff5969!important;box-shadow:0 6px 15px #c8203a30}
+input,select,textarea{background:#10131b!important;border:1px solid #3a3e4a!important;border-radius:12px!important;color:#fff!important;padding:13px!important;min-height:45px;font-size:16px!important}
+input:focus,select:focus,textarea:focus{outline:2px solid #ef4256!important;outline-offset:1px;border-color:#ef4256!important}
+label{color:#cfd0d8!important;font-weight:650!important;font-size:12px!important}
+.notice{border-left:3px solid #ff4a5e!important;background:#281923;padding:12px 13px!important;border-radius:0 11px 11px 0;color:#e5d8dc!important}
+section#dashboard>.grid{margin-bottom:16px}section#dashboard .panel:first-of-type{border-top:2px solid #e2384d!important}
+canvas{max-width:100%}table{display:block;overflow-x:auto}th{color:#f0a3ad;font-size:11px;text-transform:uppercase;letter-spacing:.06em}td,th{border-color:#343742!important;padding:12px 9px!important}tr:nth-child(even){background:#ffffff04}
+footer{border-top:1px solid #252832;margin-top:22px;padding:26px 15px!important}
+@media(min-width:650px){main{padding:22px 24px 90px!important}.tabs{margin:0 -24px 24px!important;padding:12px 24px!important}.panel{padding:24px!important}.stat{min-height:110px}}
+@media(max-width:380px){.stat{padding:13px 10px!important}.stat strong{font-size:23px!important}.tabs button{padding:11px 13px!important}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
